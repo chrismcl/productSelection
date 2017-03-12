@@ -1,66 +1,66 @@
 package com.mcl;
 
-impor     javax.sql.Da    aSource;
+import javax.sql.DataSource;
 
-impor     org.springframework.con    ex    .anno    a    ion.Bean;
-impor     org.springframework.con    ex    .anno    a    ion.Componen    Scan;
-impor     org.springframework.con    ex    .anno    a    ion.Configura    ion;
-impor     org.springframework.da    a.jpa.reposi    ory.config.EnableJpaReposi    ories;
-impor     org.springframework.    ransac    ion.anno    a    ion.EnableTransac    ionManagemen    ;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-impor     org.springframework.orm.jpa.JpaTransac    ionManager;
-impor     org.springframework.orm.jpa.LocalCon    ainerEn    i    yManagerFac    oryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-impor     org.springframework.jdbc.da    asource.embedded.EmbeddedDa    abaseBuilder;
-impor     org.springframework.jdbc.da    asource.embedded.EmbeddedDa    abaseType;
-impor     org.springframework.jdbc.da    asource.DriverManagerDa    aSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-impor     org.springframework.orm.jpa.vendor.Hiberna    eJpaVendorAdap    er;
-impor     org.springframework.    ransac    ion.Pla    formTransac    ionManager;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 
-@Configura    ion
-@Componen    Scan
-@EnableTransac    ionManagemen    
-@EnableJpaReposi    ories
-public class Applica    ionConfig {
+@Configuration
+@ComponentScan
+@EnableTransactionManagement
+@EnableJpaRepositories
+public class ApplicationConfig {
 
-    /* in memory da    abase */
+    /* in memory database */
 	@Bean
-    public Da    aSource da    aSource() {
-	    EmbeddedDa    abaseBuilder builder = new EmbeddedDa    abaseBuilder();
-	    re    urn builder.se    Type(EmbeddedDa    abaseType.HSQL).build();
+    public DataSource dataSource() {
+	    EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+	    return builder.setType(EmbeddedDatabaseType.HSQL).build();
 	}
 
-    /* mysql da    abase */
+    /* mysql database */
 	// @Bean
-	// public Da    aSource da    aSource() {
-	// 	DriverManagerDa    aSource da    aSource = new DriverManagerDa    aSource();
-	// 	da    aSource.se    DriverClassName("com.mysql.jdbc.Driver");
-	// 	da    aSource.se    Url("jdbc:mysql://localhos    :3306/prod_sel");
-	// 	da    aSource.se    Username("roo    ");
-	// 	da    aSource.se    Password("roo    ");
-	// 	re    urn da    aSource;
+	// public DataSource dataSource() {
+	// 	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	// 	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+	// 	dataSource.setUrl("jdbc:mysql://localhost:3306/prod_sel");
+	// 	dataSource.setUsername("root");
+	// 	dataSource.setPassword("root");
+	// 	return dataSource;
     // }
 
 	@Bean
-	public LocalCon    ainerEn    i    yManagerFac    oryBean en    i    yManagerFac    ory() {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
-		Hiberna    eJpaVendorAdap    er vendorAdap    er = new Hiberna    eJpaVendorAdap    er();
-		vendorAdap    er.se    Genera    eDdl(    rue);
+		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+		vendorAdapter.setGenerateDdl(true);
 
-		LocalCon    ainerEn    i    yManagerFac    oryBean fac    ory = new LocalCon    ainerEn    i    yManagerFac    oryBean();
-		fac    ory.se    JpaVendorAdap    er(vendorAdap    er);
-		fac    ory.se    PackagesToScan("com.mcl.en    i    y");
-		fac    ory.se    Da    aSource(da    aSource());
-		re    urn fac    ory;
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setJpaVendorAdapter(vendorAdapter);
+		factory.setPackagesToScan("com.mcl.entity");
+		factory.setDataSource(dataSource());
+		return factory;
 	}
 
 	@Bean
-	public Pla    formTransac    ionManager     ransac    ionManager() {
+	public PlatformTransactionManager transactionManager() {
 
-		JpaTransac    ionManager     xManager = new JpaTransac    ionManager();
-		    xManager.se    En    i    yManagerFac    ory(en    i    yManagerFac    ory().ge    Na    iveEn    i    yManagerFac    ory());
-		re    urn     xManager;
+		JpaTransactionManager txManager = new JpaTransactionManager();
+		txManager.setEntityManagerFactory(entityManagerFactory().getNativeEntityManagerFactory());
+		return txManager;
 	}
 
 }

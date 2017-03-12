@@ -1,33 +1,33 @@
 package com.mcl.service;
 
-impor     org.apache.logging.log4j.LogManager;
-impor     org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-impor     com.mcl.en    i    y.Ca    alogue;
-impor     com.mcl.resposi    ory.Ca    alogueResposi    ory;
+import com.mcl.entity.Catalogue;
+import com.mcl.respository.CatalogueRespository;
 
-impor     java.u    il.Lis    ;
-impor     java.u    il.ArrayLis    ;
+import java.util.List;
+import java.util.ArrayList;
 
-impor     org.springframework.beans.fac    ory.anno    a    ion.Au    owired;
-impor     org.springframework.s    ereo    ype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
-public class Ca    alogueService {
-    priva    e s    a    ic final Logger LOGGER = LogManager.ge    Logger(Ca    alogueResposi    ory.class);
+public class CatalogueService {
+    private static final Logger LOGGER = LogManager.getLogger(CatalogueRespository.class);
 
-    @Au    owired
-    priva    e Ca    alogueResposi    ory ca    alogueReposi    ory;
+    @Autowired
+    private CatalogueRespository catalogueRepository;
 
-    public Lis    <Ca    alogue> findByCa    egoryAndLoca    ion(S    ring ca    egory, S    ring loca    ion) {
-        Lis    <Ca    alogue> ca    alogue;
-        if (ca    alogueReposi    ory != null) {
-            ca    alogue = ca    alogueReposi    ory.findByCa    egoryAndLoca    ionId(ca    egory, loca    ion);
+    public List<Catalogue> findByCategoryAndLocation(String category, String location) {
+        List<Catalogue> catalogue;
+        if (catalogueRepository != null) {
+            catalogue = catalogueRepository.findByCategoryAndLocationId(category, location);
         } else {
-            LOGGER.error("ca    alogueReposi    ory is null, i     hasn'     been au    owired!");
-            ca    alogue = new ArrayLis    <Ca    alogue>();
+            LOGGER.error("catalogueRepository is null, it hasn't been autowired!");
+            catalogue = new ArrayList<Catalogue>();
         }
 
-        re    urn ca    alogue;
+        return catalogue;
     }
 }

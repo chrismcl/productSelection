@@ -1,155 +1,155 @@
 package com.mcl.service;
 
-impor     s    a    ic org.juni    .Asser    .asser    True;
-impor     s    a    ic org.juni    .Asser    .asser    Null;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
-impor     com.mcl.en    i    y.Ca    alogue;
-impor     com.mcl.resposi    ory.Ca    alogueResposi    ory;
+import com.mcl.entity.Catalogue;
+import com.mcl.respository.CatalogueRespository;
 
-impor     java.u    il.Lis    ;
-impor     java.u    il.ArrayLis    ;
-impor     javax.anno    a    ion.Pos    Cons    ruc    ;
+import java.util.List;
+import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 
-impor     javax.valida    ion.Cons    rain    Viola    ionExcep    ion;
+import javax.validation.ConstraintViolationException;
 
-impor     org.juni    .Before;
-impor     org.juni    .rules.Expec    edExcep    ion;
-impor     org.juni    .runner.RunWi    h;
-impor     org.juni    .Rule;
-impor     org.juni    .Tes    ;
+import org.junit.Before;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.junit.Rule;
+import org.junit.Test;
 
-impor     org.springframework.beans.fac    ory.anno    a    ion.Au    owired;
-impor     org.springframework.    es    .con    ex    .Con    ex    Configura    ion;
-impor     org.springframework.    ransac    ion.anno    a    ion.Transac    ional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
-@RunWi    h(org.springframework.    es    .con    ex    .juni    4.SpringJUni    4ClassRunner.class)
-@Con    ex    Configura    ion(loca    ions="classpa    h:beans-    es    .xml")
-@Transac    ional
-public class Ca    alogueServiceTes     {
+@RunWith(org.springframework.test.context.junit4.SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="classpath:beans-test.xml")
+@Transactional
+public class CatalogueServiceTest {
 
-	@Au    owired
-	priva    e Ca    alogueResposi    ory ca    alogueReposi    ory;
+	@Autowired
+	private CatalogueRespository catalogueRepository;
 
 	@Before
-    public void se    Up() {
-        ca    alogueReposi    ory.dele    eAllInBa    ch();
+    public void setUp() {
+        catalogueRepository.deleteAllInBatch();
     }
 
     @Rule
-    public final Expec    edExcep    ion excep    ion = Expec    edExcep    ion.none();
+    public final ExpectedException exception = ExpectedException.none();
 
-	@Tes    
-	public void     es    FindByCa    egoryAndLoca    ionId() {
-        Lis    <Ca    alogue> ca    alogLis     = ca    alogueReposi    ory.findAll();
-        asser    True(ca    alogLis    .isEmp    y());
+	@Test
+	public void testFindByCategoryAndLocationId() {
+        List<Catalogue> catalogList = catalogueRepository.findAll();
+        assertTrue(catalogList.isEmpty());
 
-		Ca    alogue spor    1 = new Ca    alogue();
-		spor    1.se    Ca    egory("Spor    s");
-		spor    1.se    Produc    ("Man Uni    ed TV");
-		spor    1.se    Loca    ionId("Manches    er");
-		ca    alogueReposi    ory.save(spor    1);
+		Catalogue sport1 = new Catalogue();
+		sport1.setCategory("Sports");
+		sport1.setProduct("Man United TV");
+		sport1.setLocationId("Manchester");
+		catalogueRepository.save(sport1);
 
-		Ca    alogue spor    2 = new Ca    alogue();
-		spor    2.se    Ca    egory("Spor    s");
-		spor    2.se    Produc    ("Man Ci    y TV");
-		spor    2.se    Loca    ionId("Manches    er");
-		ca    alogueReposi    ory.save(spor    2);
+		Catalogue sport2 = new Catalogue();
+		sport2.setCategory("Sports");
+		sport2.setProduct("Man City TV");
+		sport2.setLocationId("Manchester");
+		catalogueRepository.save(sport2);
 
-		Ca    alogue spor    3 = new Ca    alogue();
-		spor    3.se    Ca    egory("Spor    s");
-		spor    3.se    Produc    ("Leices    er TV");
-		spor    3.se    Loca    ionId("Leices    er");
-		ca    alogueReposi    ory.save(spor    3);
+		Catalogue sport3 = new Catalogue();
+		sport3.setCategory("Sports");
+		sport3.setProduct("Leicester TV");
+		sport3.setLocationId("Leicester");
+		catalogueRepository.save(sport3);
 
-		Ca    alogue news1 = new Ca    alogue();
-		news1.se    Ca    egory("News");
-		news1.se    Produc    ("BBC Manches    er TV");
-		news1.se    Loca    ionId("Manches    er");
-		ca    alogueReposi    ory.save(news1);
+		Catalogue news1 = new Catalogue();
+		news1.setCategory("News");
+		news1.setProduct("BBC Manchester TV");
+		news1.setLocationId("Manchester");
+		catalogueRepository.save(news1);
 
-		ca    alogLis     = ca    alogueReposi    ory.findByCa    egoryAndLoca    ionId("Spor    s", "Manches    er");
-		for (Ca    alogue ca     : ca    alogLis    ) {
-			asser    True(ca    .ge    Loca    ionId().equals("Manches    er"));
-			asser    True(ca    .ge    Ca    egory().equals("Spor    s"));
+		catalogList = catalogueRepository.findByCategoryAndLocationId("Sports", "Manchester");
+		for (Catalogue cat : catalogList) {
+			assertTrue(cat.getLocationId().equals("Manchester"));
+			assertTrue(cat.getCategory().equals("Sports"));
 		}
 
-        ca    alogLis     = ca    alogueReposi    ory.findByCa    egoryAndLoca    ionId("Spor    s", "Leices    er");
-		for (Ca    alogue ca     : ca    alogLis    ) {
-			asser    True(ca    .ge    Loca    ionId().equals("Leices    er"));
-			asser    True(ca    .ge    Ca    egory().equals("Spor    s"));	
-			asser    True(ca    .ge    Produc    ().equals("Leices    er TV"));		
+        catalogList = catalogueRepository.findByCategoryAndLocationId("Sports", "Leicester");
+		for (Catalogue cat : catalogList) {
+			assertTrue(cat.getLocationId().equals("Leicester"));
+			assertTrue(cat.getCategory().equals("Sports"));	
+			assertTrue(cat.getProduct().equals("Leicester TV"));		
 		}
 
-        ca    alogLis     = ca    alogueReposi    ory.findByCa    egoryAndLoca    ionId("News", "Manches    er");
-		for (Ca    alogue ca     : ca    alogLis    ) {
-			asser    True(ca    .ge    Loca    ionId().equals("Manches    er"));
-			asser    True(ca    .ge    Ca    egory().equals("News"));	
-			asser    True(ca    .ge    Produc    ().equals("BBC Manches    er TV"));		
+        catalogList = catalogueRepository.findByCategoryAndLocationId("News", "Manchester");
+		for (Catalogue cat : catalogList) {
+			assertTrue(cat.getLocationId().equals("Manchester"));
+			assertTrue(cat.getCategory().equals("News"));	
+			assertTrue(cat.getProduct().equals("BBC Manchester TV"));		
 		}
 
-		ca    alogLis     = ca    alogueReposi    ory.findByCa    egoryAndLoca    ionId("News", "Leices    er");
-		asser    True(ca    alogLis    .isEmp    y());
+		catalogList = catalogueRepository.findByCategoryAndLocationId("News", "Leicester");
+		assertTrue(catalogList.isEmpty());
 	}
 
-	@Tes    
-	public void     es    FindByCa    egoryWi    hNoLoca    ion() {
-        Lis    <Ca    alogue> ca    alogLis     = ca    alogueReposi    ory.findAll();
-        asser    True(ca    alogLis    .isEmp    y());
+	@Test
+	public void testFindByCategoryWithNoLocation() {
+        List<Catalogue> catalogList = catalogueRepository.findAll();
+        assertTrue(catalogList.isEmpty());
 
-		Ca    alogue spor    1 = new Ca    alogue();
-		spor    1.se    Ca    egory("Spor    s");
-		spor    1.se    Produc    ("World Cup TV");
-		ca    alogueReposi    ory.save(spor    1);
+		Catalogue sport1 = new Catalogue();
+		sport1.setCategory("Sports");
+		sport1.setProduct("World Cup TV");
+		catalogueRepository.save(sport1);
 
-        ca    alogLis     = ca    alogueReposi    ory.findByCa    egoryAndLoca    ionId("Spor    s", "Leices    er");
-		for (Ca    alogue ca     : ca    alogLis    ) {
-			asser    Null(ca    .ge    Loca    ionId());
-			asser    True(ca    .ge    Ca    egory().equals("Spor    s"));	
-			asser    True(ca    .ge    Produc    ().equals("World Cup TV"));		
+        catalogList = catalogueRepository.findByCategoryAndLocationId("Sports", "Leicester");
+		for (Catalogue cat : catalogList) {
+			assertNull(cat.getLocationId());
+			assertTrue(cat.getCategory().equals("Sports"));	
+			assertTrue(cat.getProduct().equals("World Cup TV"));		
 		}
 	}
 
-	@Tes    
-	public void     es    Ca    egoryCanno    BeEmp    y() {
-		Ca    alogue spor    1 = new Ca    alogue();
-		spor    1.se    Ca    egory("");
-		spor    1.se    Produc    ("World Cup TV");
-		excep    ion.expec    (Cons    rain    Viola    ionExcep    ion.class);
-		ca    alogueReposi    ory.save(spor    1);
+	@Test
+	public void testCategoryCannotBeEmpty() {
+		Catalogue sport1 = new Catalogue();
+		sport1.setCategory("");
+		sport1.setProduct("World Cup TV");
+		exception.expect(ConstraintViolationException.class);
+		catalogueRepository.save(sport1);
 	}
 
-	@Tes    
-	public void     es    Produc    Canno    BeEmp    y() {
-		Ca    alogue spor    1 = new Ca    alogue();
-		spor    1.se    Ca    egory("Spor    s");
-		spor    1.se    Produc    ("");
-		excep    ion.expec    (Cons    rain    Viola    ionExcep    ion.class);
-		ca    alogueReposi    ory.save(spor    1);
+	@Test
+	public void testProductCannotBeEmpty() {
+		Catalogue sport1 = new Catalogue();
+		sport1.setCategory("Sports");
+		sport1.setProduct("");
+		exception.expect(ConstraintViolationException.class);
+		catalogueRepository.save(sport1);
 	}
 
-	@Tes    
-	public void     es    Ca    egoryCanno    BeNull() {
-		Ca    alogue spor    1 = new Ca    alogue();
-		spor    1.se    Produc    ("World Cup TV");
-		excep    ion.expec    (Cons    rain    Viola    ionExcep    ion.class);
-		ca    alogueReposi    ory.save(spor    1);
+	@Test
+	public void testCategoryCannotBeNull() {
+		Catalogue sport1 = new Catalogue();
+		sport1.setProduct("World Cup TV");
+		exception.expect(ConstraintViolationException.class);
+		catalogueRepository.save(sport1);
 	}
 
-	@Tes    
-	public void     es    Produc    Canno    BeNull() {
-		Ca    alogue spor    1 = new Ca    alogue();
-		spor    1.se    Ca    egory("Spor    s");
-		excep    ion.expec    (Cons    rain    Viola    ionExcep    ion.class);
-		ca    alogueReposi    ory.save(spor    1);
+	@Test
+	public void testProductCannotBeNull() {
+		Catalogue sport1 = new Catalogue();
+		sport1.setCategory("Sports");
+		exception.expect(ConstraintViolationException.class);
+		catalogueRepository.save(sport1);
 	}
 
-	@Tes    
-	public void     es    Loca    ionIdCanno    BeEmp    y() {
-		Ca    alogue news1 = new Ca    alogue();
-		news1.se    Ca    egory("News");
-		news1.se    Produc    ("BBC Manches    er TV");
-		news1.se    Loca    ionId("");
-		excep    ion.expec    (Cons    rain    Viola    ionExcep    ion.class);
-		ca    alogueReposi    ory.save(news1);
+	@Test
+	public void testLocationIdCannotBeEmpty() {
+		Catalogue news1 = new Catalogue();
+		news1.setCategory("News");
+		news1.setProduct("BBC Manchester TV");
+		news1.setLocationId("");
+		exception.expect(ConstraintViolationException.class);
+		catalogueRepository.save(news1);
 	}
 }

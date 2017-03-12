@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configura    ion xmlns="h        p://logging.apache.org/log4j/2.0/config">
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
 
     <Appenders>
-        <Console name="STDOUT"     arge    ="SYSTEM_OUT">
-            <Pa        ernLayou     pa        ern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%    ] %C{2} (%F:%L) - %m%n"/>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </Console>
     </Appenders>
 
     <Loggers>
-        <Roo     level="info">
+        <Root level="info">
             <AppenderRef ref="STDOUT"/>
-        </Roo    >
+        </Root>
     </Loggers>
 
-</Configura    ion>
+</Configuration>

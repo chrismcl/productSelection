@@ -1,124 +1,124 @@
 package com.mcl.beans;
 
-impor     com.mcl.beans.u    ils.Produc    Selec    ionCookie;
-impor     com.mcl.service.Cus    omerLoca    ionService;
-impor     com.mcl.excep    ions.FailureExcep    ion;
-impor     com.mcl.service.Ca    alogueService;
-impor     com.mcl.en    i    y.Ca    alogue;
+import com.mcl.beans.utils.ProductSelectionCookie;
+import com.mcl.service.CustomerLocationService;
+import com.mcl.exceptions.FailureException;
+import com.mcl.service.CatalogueService;
+import com.mcl.entity.Catalogue;
 
-impor     javax.faces.bean.ManagedBean;
-impor     javax.faces.bean.ManagedProper    y;
-impor     javax.faces.bean.SessionScoped;
-impor     javax.anno    a    ion.Pos    Cons    ruc    ;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.annotation.PostConstruct;
 
-impor     java.u    il.Map;
-impor     java.u    il.Lis    ;
-impor     java.u    il.ArrayLis    ;
-impor     java.u    il.HashMap;
-impor     java.io.Serializable;
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.io.Serializable;
 
-impor     org.apache.logging.log4j.LogManager;
-impor     org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@ManagedBean(name="produc    Selec    ionBean")
+@ManagedBean(name="productSelectionBean")
 @SessionScoped
-public class Produc    Selec    ionBean implemen    s Serializable {
+public class ProductSelectionBean implements Serializable {
 
-	priva    e s    a    ic final Logger LOGGER = LogManager.ge    Logger(Produc    Selec    ionBean.class);
-	priva    e s    a    ic final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LogManager.getLogger(ProductSelectionBean.class);
+	private static final long serialVersionUID = 1L;
  
-    @ManagedProper    y("#{ca    alogueService}")
-    priva    e Ca    alogueService ca    alogueService;
+    @ManagedProperty("#{catalogueService}")
+    private CatalogueService catalogueService;
 
-	priva    e Lis    <Ca    alogue> selec    edNews;
-	priva    e Lis    <Ca    alogue> selec    edSpor    s;
-	priva    e Lis    <Ca    alogue> baske    Lis    ;
+	private List<Catalogue> selectedNews;
+	private List<Catalogue> selectedSports;
+	private List<Catalogue> basketList;
 
-	priva    e Map<S    ring,Lis    <Ca    alogue>> produc    s;
+	private Map<String,List<Catalogue>> products;
 
-	priva    e S    ring cus    omerId = "";
+	private String customerId = "";
 
-	@Pos    Cons    ruc    
-    public void ini    () {
-    	LOGGER.info("ini    ");
+	@PostConstruct
+    public void init() {
+    	LOGGER.info("init");
 
-    	Produc    Selec    ionCookie cookie = new Produc    Selec    ionCookie();
-        cus    omerId = cookie.ge    Cus    omerId();
-        LOGGER.info("cus    omerId: {}", cus    omerId);
+    	ProductSelectionCookie cookie = new ProductSelectionCookie();
+        customerId = cookie.getCustomerId();
+        LOGGER.info("customerId: {}", customerId);
 
-    	selec    edNews = new ArrayLis    <Ca    alogue>();
-    	selec    edSpor    s = new ArrayLis    <Ca    alogue>();
-    	baske    Lis     = new ArrayLis    <Ca    alogue>();
+    	selectedNews = new ArrayList<Catalogue>();
+    	selectedSports = new ArrayList<Catalogue>();
+    	basketList = new ArrayList<Catalogue>();
 
-        produc    s = new HashMap<S    ring, Lis    <Ca    alogue>>();
+        products = new HashMap<String, List<Catalogue>>();
 
-            ry {
-            Cus    omerLoca    ionService loca    ion = new Cus    omerLoca    ionService();
-            S    ring loca    ionId = loca    ion.findLoca    ionIdByCus    omerId(cus    omerId);
-            LOGGER.info("Loca    ion: {}", loca    ionId);
+        try {
+            CustomerLocationService location = new CustomerLocationService();
+            String locationId = location.findLocationIdByCustomerId(customerId);
+            LOGGER.info("Location: {}", locationId);
 
-            ge    Ca    alogueDa    a(loca    ionId);
+            getCatalogueData(locationId);
 
-        } ca    ch (FailureExcep    ion e) {
-        	LOGGER.error(e.ge    Message(), e);
+        } catch (FailureException e) {
+        	LOGGER.error(e.getMessage(), e);
         }
     }
 
-    priva    e void ge    Ca    alogueDa    a(S    ring loca    ionId) {
-        if (ca    alogueService != null) {
-            Lis    <Ca    alogue> spor    sProduc    s = ca    alogueService.findByCa    egoryAndLoca    ion("Spor    s", loca    ionId);
-            Lis    <Ca    alogue> newsProduc    s = ca    alogueService.findByCa    egoryAndLoca    ion("News", loca    ionId);
-            produc    s.pu    ("Spor    s", spor    sProduc    s);
-            produc    s.pu    ("News", newsProduc    s);
+    private void getCatalogueData(String locationId) {
+        if (catalogueService != null) {
+            List<Catalogue> sportsProducts = catalogueService.findByCategoryAndLocation("Sports", locationId);
+            List<Catalogue> newsProducts = catalogueService.findByCategoryAndLocation("News", locationId);
+            products.put("Sports", sportsProducts);
+            products.put("News", newsProducts);
         } else {
-        	LOGGER.error("ca    alogueService is null, dependency injec    ion has failed");
+        	LOGGER.error("catalogueService is null, dependency injection has failed");
         }
     }
 
-    public Lis    <Ca    alogue> ge    Produc    s(S    ring ca    egory) {
-        re    urn     his.produc    s.ge    (ca    egory);
+    public List<Catalogue> getProducts(String category) {
+        return this.products.get(category);
     }	
 
-	public void se    Selec    edNews(Lis    <Ca    alogue> selec    edNews) {
-		LOGGER.debug("Se     selec    edNews: {}", selec    edNews);
-	        his.selec    edNews = selec    edNews;
+	public void setSelectedNews(List<Catalogue> selectedNews) {
+		LOGGER.debug("Set selectedNews: {}", selectedNews);
+	    this.selectedNews = selectedNews;
 	}
 
-	public Lis    <Ca    alogue> ge    Selec    edNews() {
-        LOGGER.debug("Ge     selec    edNews: {}",     his.selec    edNews);
-		re    urn     his.selec    edNews;
+	public List<Catalogue> getSelectedNews() {
+        LOGGER.debug("Get selectedNews: {}", this.selectedNews);
+		return this.selectedNews;
 	}
 
-	public void se    Selec    edSpor    s(Lis    <Ca    alogue> selec    edSpor    s) {
-        LOGGER.debug("Se     selec    edSpor    s: {}", selec    edSpor    s);
-	        his.selec    edSpor    s = selec    edSpor    s;
+	public void setSelectedSports(List<Catalogue> selectedSports) {
+        LOGGER.debug("Set selectedSports: {}", selectedSports);
+	    this.selectedSports = selectedSports;
 	}
 
-	public Lis    <Ca    alogue> ge    Selec    edSpor    s() {
-        LOGGER.debug("Ge     selec    edSpor    s: {}",     his.selec    edSpor    s);
-		re    urn     his.selec    edSpor    s;
+	public List<Catalogue> getSelectedSports() {
+        LOGGER.debug("Get selectedSports: {}", this.selectedSports);
+		return this.selectedSports;
 	}
 
-	public void se    Baske    () {
-		LOGGER.debug("Se     Baske    ");
-		    his.baske    Lis     = new ArrayLis    <Ca    alogue>();
-            his.baske    Lis    .addAll(    his.selec    edNews);
-            his.baske    Lis    .addAll(    his.selec    edSpor    s);
+	public void setBasket() {
+		LOGGER.debug("Set Basket");
+		this.basketList = new ArrayList<Catalogue>();
+        this.basketList.addAll(this.selectedNews);
+        this.basketList.addAll(this.selectedSports);
 	}
 
-	public Lis    <Ca    alogue> ge    Baske    Lis    () {
-		re    urn     his.baske    Lis    ;
+	public List<Catalogue> getBasketList() {
+		return this.basketList;
 	}
 
-	public S    ring ge    Cus    omerId() {
-		re    urn     his.cus    omerId;
+	public String getCustomerId() {
+		return this.customerId;
 	}
 
-	public void se    Ca    alogueService(Ca    alogueService ca    alogueService) {
-            his.ca    alogueService = ca    alogueService;
+	public void setCatalogueService(CatalogueService catalogueService) {
+        this.catalogueService = catalogueService;
 	}
 
-	public Ca    alogueService ge    Ca    alogueService() {
-		re    urn     his.ca    alogueService;
+	public CatalogueService getCatalogueService() {
+		return this.catalogueService;
 	}
 }

@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="h        p://www.w3.org/2001/XMLSchema-ins    ance"
-	xmlns="h        p://java.sun.com/xml/ns/javaee" 
-	xmlns:web="h        p://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLoca    ion="h        p://java.sun.com/xml/ns/javaee 
-	h        p://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 
-  <display-name>Produc     Selec    ion</display-name>
+  <display-name>Product Selection</display-name>
   
-  	<!-- Change     o "Produc    ion" when you are ready     o deploy -->
-	<con    ex    -param>
+  	<!-- Change to "Production" when you are ready to deploy -->
+	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Developmen    </param-value>
-	</con    ex    -param>
+		<param-value>Development</param-value>
+	</context-param>
 
 	<!-- Welcome page -->
-	<welcome-file-lis    >
-		<welcome-file>faces/views/produc    Selec    ion/Produc    Selec    ionView.xh    ml</welcome-file>
-	</welcome-file-lis    >
+	<welcome-file-list>
+		<welcome-file>faces/views/productSelection/ProductSelectionView.xhtml</welcome-file>
+	</welcome-file-list>
 
 	<!-- JSF mapping -->
-	<servle    >
-		<servle    -name>Faces Servle    </servle    -name>
-		<servle    -class>javax.faces.webapp.FacesServle    </servle    -class>
-		<load-on-s    ar    up>1</load-on-s    ar    up>
-	</servle    >
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	
-	<servle    -mapping>
-		<servle    -name>Faces Servle    </servle    -name>
-		<url-pa        ern>/faces/*</url-pa        ern>
-	</servle    -mapping>
-	<servle    -mapping>
-		<servle    -name>Faces Servle    </servle    -name>
-		<url-pa        ern>*.xh    ml</url-pa        ern>
-	</servle    -mapping>
-	<lis    ener>
-		<lis    ener-class>com.sun.faces.config.ConfigureLis    ener</lis    ener-class>
-	</lis    ener>
-	<con    ex    -param>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+	<context-param>
 		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
 		<param-value>0</param-value>
-	</con    ex    -param>
-	<con    ex    -param>
+	</context-param>
+	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Developmen    </param-value>
-	</con    ex    -param>
-	<con    ex    -param>
+		<param-value>Development</param-value>
+	</context-param>
+	<context-param>
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-		<param-value>    rue</param-value>
-	</con    ex    -param>
+		<param-value>true</param-value>
+	</context-param>
 	
 </web-app>

@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE h    ml PUBLIC "-//W3C//DTD XHTML 1.0 Transi    ional//EN" 
-"h        p://www.w3.org/TR/xh    ml1/DTD/xh    ml1-    ransi    ional.d    d">
-<h    ml xmlns="h        p://www.w3.org/1999/xh    ml"
-	xmlns:h="h        p://java.sun.com/jsf/h    ml"
-	xmlns:f="h        p://java.sun.com/jsf/core"
-	xmlns:ui="h        p://java.sun.com/jsf/facele    s"
-	xmlns:p="h        p://primefaces.org/ui">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-<    i    le>Produc     Selec    ion</    i    le>
+<title>Product Selection</title>
 </h:head>
 <h:body>
 
 	<h:form>
-        <p:panelGrid s    yle="wid    h:100%"> 
+        <p:panelGrid style="width:100%"> 
             <p:row>
                 <p:column colspan="3">
-                    <p:spacer heigh    ="100"/>
+                    <p:spacer height="100"/>
                 </p:column>
             </p:row>
 
             <p:row>
                 <p:column>
-                    <h:ou    pu    Tex     value="News:" />
+                    <h:outputText value="News:" />
                     <br />
-                    <p:selec    ManyMenu id="newsMenu" value="#{produc    Selec    ionBean.selec    edNews}" showCheckbox="    rue" fil    er="    rue" fil    erMa    chMode="con    ains" s    yle="wid    h: 100% !impor    an    ;">
-                        <f:selec    I    ems value="#{produc    Selec    ionBean.ge    Produc    s('News')}" var="ca    alogue" i    emLabel="#{ca    alogue.produc    }" i    emValue="#{ca    alogue}"/>
-                        <f:ajax lis    ener="#{produc    Selec    ionBean.se    Baske    }" render="selec    edLis    " />
-                    </p:selec    ManyMenu>
+                    <p:selectManyMenu id="newsMenu" value="#{productSelectionBean.selectedNews}" showCheckbox="true" filter="true" filterMatchMode="contains" style="width: 100% !important;">
+                        <f:selectItems value="#{productSelectionBean.getProducts('News')}" var="catalogue" itemLabel="#{catalogue.product}" itemValue="#{catalogue}"/>
+                        <f:ajax listener="#{productSelectionBean.setBasket}" render="selectedList" />
+                    </p:selectManyMenu>
                 </p:column>
             
                 <p:column>
-                    <h:ou    pu    Tex     value="Spor    s:" />
+                    <h:outputText value="Sports:" />
                     <br />
-                    <p:selec    ManyMenu id="spor    sMenu" value="#{produc    Selec    ionBean.selec    edSpor    s}" showCheckbox="    rue" fil    er="    rue" fil    erMa    chMode="con    ains" s    yle="wid    h: 100% !impor    an    ">
-                        <f:selec    I    ems value="#{produc    Selec    ionBean.ge    Produc    s('Spor    s')}" var="ca    alogue" i    emLabel="#{ca    alogue.produc    }" i    emValue="#{ca    alogue}"/>
-                        <f:ajax lis    ener="#{produc    Selec    ionBean.se    Baske    }" render="selec    edLis    "/>
-                    </p:selec    ManyMenu>
+                    <p:selectManyMenu id="sportsMenu" value="#{productSelectionBean.selectedSports}" showCheckbox="true" filter="true" filterMatchMode="contains" style="width: 100% !important">
+                        <f:selectItems value="#{productSelectionBean.getProducts('Sports')}" var="catalogue" itemLabel="#{catalogue.product}" itemValue="#{catalogue}"/>
+                        <f:ajax listener="#{productSelectionBean.setBasket}" render="selectedList"/>
+                    </p:selectManyMenu>
                 </p:column>
 
                 <p:column>
-                    <h:ou    pu    Tex     value="Baske    :" />
-                    <p:da    aLis     id="selec    edLis    " value="#{produc    Selec    ionBean.baske    Lis    }" var="ca    alogue"     ype="unordered" pagina    or="    rue" rows="5">
-                        #{ca    alogue}
-                    </p:da    aLis    >
+                    <h:outputText value="Basket:" />
+                    <p:dataList id="selectedList" value="#{productSelectionBean.basketList}" var="catalogue" type="unordered" paginator="true" rows="5">
+                        #{catalogue}
+                    </p:dataList>
                     <br />
                     <br />
-                    <p:commandBu        on value="Checkou    " ac    ion="/views/confirma    ion/Confirma    ionView.xh    ml" />
+                    <p:commandButton value="Checkout" action="/views/confirmation/ConfirmationView.xhtml" />
                 </p:column>
             </p:row>
 
             <p:row>
                 <p:column colspan="3">
-                    <p:spacer heigh    ="100"/>
+                    <p:spacer height="100"/>
                 </p:column>
             </p:row>
 
         </p:panelGrid>
 
-        <p:dialog header="Selec    ed Values" modal="    rue" showEffec    ="fade" widge    Var="dlg" resizable="false">
-            <p:panelGrid columns="2" id="display" columnClasses="label,ou    pu    ">
-                <h:ou    pu    Tex     value="News:" />
-                <p:da    aLis     value="#{produc    Selec    ionBean.selec    edNews}" var="newsOp    ions">
-                    <h:ou    pu    Tex     value="#{newsOp    ions}" />
-                </p:da    aLis    >
-                <h:ou    pu    Tex     value="Spor    s:" />
-                <p:da    aLis     value="#{produc    Selec    ionBean.selec    edSpor    s}" var="spor    sOp    ions">
-                    <h:ou    pu    Tex     value="#{spor    sOp    ions}" />
-                </p:da    aLis    >
+        <p:dialog header="Selected Values" modal="true" showEffect="fade" widgetVar="dlg" resizable="false">
+            <p:panelGrid columns="2" id="display" columnClasses="label,output">
+                <h:outputText value="News:" />
+                <p:dataList value="#{productSelectionBean.selectedNews}" var="newsOptions">
+                    <h:outputText value="#{newsOptions}" />
+                </p:dataList>
+                <h:outputText value="Sports:" />
+                <p:dataList value="#{productSelectionBean.selectedSports}" var="sportsOptions">
+                    <h:outputText value="#{sportsOptions}" />
+                </p:dataList>
             </p:panelGrid>
         </p:dialog> 
 
 	</h:form>
 
 </h:body>
-</h    ml>
+</html>

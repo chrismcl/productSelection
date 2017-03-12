@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="h        p://www.springframework.org/schema/beans"
-  xmlns:aop="h        p://www.springframework.org/schema/aop" xmlns:con    ex    ="h        p://www.springframework.org/schema/con    ex    "
-  xmlns:securi    y="h        p://www.springframework.org/schema/securi    y"
-  xmlns:    x="h        p://www.springframework.org/schema/    x" xmlns:xsi="h        p://www.w3.org/2001/XMLSchema-ins    ance"
-  xsi:schemaLoca    ion="
-        h        p://www.springframework.org/schema/aop h        p://www.springframework.org/schema/aop/spring-aop-3.2.xsd
-        h        p://www.springframework.org/schema/beans h        p://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-        h        p://www.springframework.org/schema/con    ex     h        p://www.springframework.org/schema/con    ex    /spring-con    ex    -3.2.xsd
-        h        p://www.springframework.org/schema/    x h        p://www.springframework.org/schema/    x/spring-    x-3.2.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
   
-  <con    ex    :componen    -scan base-package="com.mcl">
-  </con    ex    :componen    -scan>
+  <context:component-scan base-package="com.mcl">
+  </context:component-scan>
 
-  <    x:anno    a    ion-driven />
-  <con    ex    :anno    a    ion-config />
+  <tx:annotation-driven />
+  <context:annotation-config />
 
-  <bean id="da    aSource"
-    class="org.springframework.jdbc.da    asource.DriverManagerDa    aSource">
-    <proper    y name="driverClassName">
+  <bean id="dataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName">
       <value>org.hsqldb.jdbcDriver</value>
-    </proper    y>
-    <proper    y name="url">
-      <value>jdbc:hsqldb:mem:myda    abase</value>
-    </proper    y>
+    </property>
+    <property name="url">
+      <value>jdbc:hsqldb:mem:mydatabase</value>
+    </property>
   </bean>
 
-  <bean id="en    i    yManagerFac    ory"
-    class="org.springframework.orm.jpa.LocalCon    ainerEn    i    yManagerFac    oryBean">
-    <proper    y name="da    aSource" ref="da    aSource" />
-    <proper    y name="persis    enceUni    Name" value="jpaDa    a" />
-    <proper    y name="jpaVendorAdap    er">
-      <bean class="org.springframework.orm.jpa.vendor.Hiberna    eJpaVendorAdap    er" />
-    </proper    y>
-    <proper    y name="jpaProper    ies">
+  <bean id="entityManagerFactory"
+    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="persistenceUnitName" value="jpaData" />
+    <property name="jpaVendorAdapter">
+      <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+    </property>
+    <property name="jpaProperties">
       <props>
-        <prop key="hiberna    e.dialec    ">org.hiberna    e.dialec    .HSQLDialec    </prop>
-        <prop key="hiberna    e.show_sql">    rue</prop>
-        <prop key="hiberna    e.forma    _sql">    rue</prop>
-        <prop key="hiberna    e.hbm2ddl.au    o">upda    e</prop>
+        <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
       </props>
-    </proper    y>
+    </property>
   </bean>
 
-  <bean id="    ransac    ionManager" class="org.springframework.orm.jpa.JpaTransac    ionManager">
-    <proper    y name="en    i    yManagerFac    ory" ref="en    i    yManagerFac    ory" />
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory" />
   </bean>
 
 </beans>
