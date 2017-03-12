@@ -1,30 +1,30 @@
 package com.mcl.service;
 
-//import com.mcl.entity.Location;
-import com.mcl.exceptions.FailureException;
-//import com.mcl.respository.LocationRepository;
+//impor     com.mcl.en    i    y.Loca    ion;
+impor     com.mcl.excep    ions.FailureExcep    ion;
+//impor     com.mcl.resposi    ory.Loca    ionReposi    ory;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+impor     org.apache.commons.lang.S    ringU    ils;
+impor     org.apache.logging.log4j.LogManager;
+impor     org.apache.logging.log4j.Logger;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+impor     org.springframework.beans.fac    ory.anno    a    ion.Au    owired;
+impor     org.springframework.s    ereo    ype.Service;
 
 @Service
-public class CustomerLocationService {
-    private static final Logger LOGGER = LogManager.getLogger(CustomerLocationService.class);
-    //TODO hardcoded to london until this is implemented
-	private String location = "London";
+public class Cus    omerLoca    ionService {
+    priva    e s    a    ic final Logger LOGGER = LogManager.ge    Logger(Cus    omerLoca    ionService.class);
+    //TODO hardcoded     o london un    il     his is implemen    ed
+	priva    e S    ring loca    ion = "London";
 
-	public String findLocationIdByCustomerId(String customerId) throws FailureException {
-		//@Autowired
-        //LocationRepository locationRepository;
+	public S    ring findLoca    ionIdByCus    omerId(S    ring cus    omerId)     hrows FailureExcep    ion {
+		//@Au    owired
+        //Loca    ionReposi    ory loca    ionReposi    ory;
         
-		if (StringUtils.isBlank(customerId)) {
-            throw new FailureException("There was a problem retrieving the customer information");
+		if (S    ringU    ils.isBlank(cus    omerId)) {
+                hrow new FailureExcep    ion("There was a problem re    rieving     he cus    omer informa    ion");
 		}
 
-		return location;
+		re    urn loca    ion;
 	}
 }

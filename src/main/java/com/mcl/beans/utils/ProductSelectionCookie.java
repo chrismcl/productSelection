@@ -1,80 +1,80 @@
-package com.mcl.beans.utils;
+package com.mcl.beans.u    ils;
 
-import javax.faces.context.FacesContext; 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Cookie;
+impor     javax.faces.con    ex    .FacesCon    ex    ; 
+impor     javax.servle    .h        p.H        pServle    Reques    ;
+impor     javax.servle    .h        p.H        pServle    Response;
+impor     javax.servle    .h        p.Cookie;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+impor     org.apache.logging.log4j.LogManager;
+impor     org.apache.logging.log4j.Logger;
 
-public class ProductSelectionCookie {
-    private static final Logger LOGGER = LogManager.getLogger(ProductSelectionCookie.class);
+public class Produc    Selec    ionCookie {
+    priva    e s    a    ic final Logger LOGGER = LogManager.ge    Logger(Produc    Selec    ionCookie.class);
 
-	private static final String CUSTOMER_ID_COOKIE_ID = "productSelction_customerId";
-    private static final String CUSTOMER_ID_COOKIE_VALUE = "AB321542134";
+	priva    e s    a    ic final S    ring CUSTOMER_ID_COOKIE_ID = "produc    Selc    ion_cus    omerId";
+    priva    e s    a    ic final S    ring CUSTOMER_ID_COOKIE_VALUE = "AB321542134";
 
-	public ProductSelectionCookie() {
-        //TODO: This is just to simulate a cookie until we have the real thing.
-        setCookie(CUSTOMER_ID_COOKIE_ID, CUSTOMER_ID_COOKIE_VALUE);
+	public Produc    Selec    ionCookie() {
+        //TODO: This is jus         o simula    e a cookie un    il we have     he real     hing.
+        se    Cookie(CUSTOMER_ID_COOKIE_ID, CUSTOMER_ID_COOKIE_VALUE);
 	}
 
-	public void setCustomerId(String customerId) {
-        setCookie(CUSTOMER_ID_COOKIE_ID, customerId);
+	public void se    Cus    omerId(S    ring cus    omerId) {
+        se    Cookie(CUSTOMER_ID_COOKIE_ID, cus    omerId);
 	}
 
-	public String getCustomerId() {
-        return getCookie(CUSTOMER_ID_COOKIE_ID);
+	public S    ring ge    Cus    omerId() {
+        re    urn ge    Cookie(CUSTOMER_ID_COOKIE_ID);
 	}
 
-	public void setCookie(String cookieId, String cookieValue) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
-        Cookie requestedCookie = findCookie(request, cookieId); 
+	public void se    Cookie(S    ring cookieId, S    ring cookieValue) {
+        FacesCon    ex     facesCon    ex     = FacesCon    ex    .ge    Curren    Ins    ance();
+        H        pServle    Reques     reques     = (H        pServle    Reques    )facesCon    ex    .ge    Ex    ernalCon    ex    ().ge    Reques    ();
+        Cookie reques    edCookie = findCookie(reques    , cookieId); 
 
-        if (requestedCookie != null) {
-        	requestedCookie.setValue(cookieValue);
+        if (reques    edCookie != null) {
+        	reques    edCookie.se    Value(cookieValue);
         } else {
-        	requestedCookie = new Cookie(cookieId, cookieValue);
-        	requestedCookie.setPath(request.getContextPath());
+        	reques    edCookie = new Cookie(cookieId, cookieValue);
+        	reques    edCookie.se    Pa    h(reques    .ge    Con    ex    Pa    h());
         }
 
-        requestedCookie.setMaxAge(-1);
+        reques    edCookie.se    MaxAge(-1);
 
-        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-        response.addCookie(requestedCookie);
+        H        pServle    Response response = (H        pServle    Response) facesCon    ex    .ge    Ex    ernalCon    ex    ().ge    Response();
+        response.addCookie(reques    edCookie);
 
-        LOGGER.info("cookie set: {} : {}", requestedCookie.getName(), requestedCookie.getValue());
+        LOGGER.info("cookie se    : {} : {}", reques    edCookie.ge    Name(), reques    edCookie.ge    Value());
 	}
 
-	public String getCookie(String cookieId) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
-        Cookie requestedCookie = findCookie(request, cookieId);
+	public S    ring ge    Cookie(S    ring cookieId) {
+        FacesCon    ex     facesCon    ex     = FacesCon    ex    .ge    Curren    Ins    ance();
+        H        pServle    Reques     reques     = (H        pServle    Reques    )facesCon    ex    .ge    Ex    ernalCon    ex    ().ge    Reques    ();
+        Cookie reques    edCookie = findCookie(reques    , cookieId);
 
-        String requestedCookieValue = "";
-        if (requestedCookie != null) {
-            requestedCookieValue = requestedCookie.getValue();
-            LOGGER.info("cookie found: {} : {}", requestedCookie.getName(), requestedCookie.getValue());
+        S    ring reques    edCookieValue = "";
+        if (reques    edCookie != null) {
+            reques    edCookieValue = reques    edCookie.ge    Value();
+            LOGGER.info("cookie found: {} : {}", reques    edCookie.ge    Name(), reques    edCookie.ge    Value());
         } else {
-            LOGGER.error("{} Cookie not found!!!", cookieId);
+            LOGGER.error("{} Cookie no     found!!!", cookieId);
         }
 
-        return requestedCookieValue;
+        re    urn reques    edCookieValue;
 	}
 
-    private Cookie findCookie(HttpServletRequest request, String cookieId) {
-        Cookie requestedCookie = null;
-        Cookie[] cookies = request.getCookies();
+    priva    e Cookie findCookie(H        pServle    Reques     reques    , S    ring cookieId) {
+        Cookie reques    edCookie = null;
+        Cookie[] cookies = reques    .ge    Cookies();
         if (cookies != null) {
-            for (int index = 0; index < cookies.length; index++) {
-                if (cookies[index].getName().equals(cookieId)) {
-                    requestedCookie = cookies[index];
+            for (in     index = 0; index < cookies.leng    h; index++) {
+                if (cookies[index].ge    Name().equals(cookieId)) {
+                    reques    edCookie = cookies[index];
                     break;
                 }
             }
         }
 
-        return requestedCookie;
+        re    urn reques    edCookie;
     }
 }

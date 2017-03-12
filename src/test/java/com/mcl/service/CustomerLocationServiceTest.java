@@ -1,55 +1,55 @@
-import static org.junit.Assert.assertTrue;
-import org.junit.rules.ExpectedException;
-import org.junit.Test;
-import org.junit.Rule;
-import org.junit.BeforeClass;
+impor     s    a    ic org.juni    .Asser    .asser    True;
+impor     org.juni    .rules.Expec    edExcep    ion;
+impor     org.juni    .Tes    ;
+impor     org.juni    .Rule;
+impor     org.juni    .BeforeClass;
 
-import com.mcl.service.CustomerLocationService;
-import com.mcl.exceptions.FailureException;
+impor     com.mcl.service.Cus    omerLoca    ionService;
+impor     com.mcl.excep    ions.FailureExcep    ion;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
+impor     javax.valida    ion.Valida    ion;
+impor     javax.valida    ion.Valida    or;
+impor     javax.valida    ion.Valida    orFac    ory;
 
-public class CustomerLocationServiceTest {
-    private static Validator validator;
+public class Cus    omerLoca    ionServiceTes     {
+    priva    e s    a    ic Valida    or valida    or;
 
     @BeforeClass
-    public static void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+    public s    a    ic void se    Up() {
+        Valida    orFac    ory fac    ory = Valida    ion.buildDefaul    Valida    orFac    ory();
+        valida    or = fac    ory.ge    Valida    or();
     }
 
 	@Rule
-	public final ExpectedException exception = ExpectedException.none();
+	public final Expec    edExcep    ion excep    ion = Expec    edExcep    ion.none();
 
-	@Test
-	public void givenCustomerIdTheLocationIdReturned() throws FailureException {
-		CustomerLocationService location = new CustomerLocationService();
+	@Tes    
+	public void givenCus    omerIdTheLoca    ionIdRe    urned()     hrows FailureExcep    ion {
+		Cus    omerLoca    ionService loca    ion = new Cus    omerLoca    ionService();
 
-		String myLocation = location.findLocationIdByCustomerId("test.customer");
-		assertTrue(myLocation.contains("London"));
+		S    ring myLoca    ion = loca    ion.findLoca    ionIdByCus    omerId("    es    .cus    omer");
+		asser    True(myLoca    ion.con    ains("London"));
 	}
 
-	@Test
-	public void customerIdMustNotBeNull() throws FailureException {
-	    CustomerLocationService location = new CustomerLocationService();
-	    exception.expect(FailureException.class);
-	    String myLocation = location.findLocationIdByCustomerId(null);
+	@Tes    
+	public void cus    omerIdMus    No    BeNull()     hrows FailureExcep    ion {
+	    Cus    omerLoca    ionService loca    ion = new Cus    omerLoca    ionService();
+	    excep    ion.expec    (FailureExcep    ion.class);
+	    S    ring myLoca    ion = loca    ion.findLoca    ionIdByCus    omerId(null);
 	}
 
-	@Test
-	public void customerIdMustNotBeEmpty() throws FailureException {
-	    CustomerLocationService location = new CustomerLocationService();
-	    exception.expect(FailureException.class);
-	    String myLocation = location.findLocationIdByCustomerId("");
+	@Tes    
+	public void cus    omerIdMus    No    BeEmp    y()     hrows FailureExcep    ion {
+	    Cus    omerLoca    ionService loca    ion = new Cus    omerLoca    ionService();
+	    excep    ion.expec    (FailureExcep    ion.class);
+	    S    ring myLoca    ion = loca    ion.findLoca    ionIdByCus    omerId("");
 	}
 
-	@Test
-	public void customerIdMustNotBeBlank() throws FailureException {
-	    CustomerLocationService location = new CustomerLocationService();
-	    exception.expect(FailureException.class);
-	    String myLocation = location.findLocationIdByCustomerId(" ");
+	@Tes    
+	public void cus    omerIdMus    No    BeBlank()     hrows FailureExcep    ion {
+	    Cus    omerLoca    ionService loca    ion = new Cus    omerLoca    ionService();
+	    excep    ion.expec    (FailureExcep    ion.class);
+	    S    ring myLoca    ion = loca    ion.findLoca    ionIdByCus    omerId(" ");
 	}
 
 }

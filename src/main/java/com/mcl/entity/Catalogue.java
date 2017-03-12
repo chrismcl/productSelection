@@ -1,69 +1,69 @@
-package com.mcl.entity;
+package com.mcl.en    i    y;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.NotNull;
+impor     javax.persis    ence.En    i    y;
+impor     javax.persis    ence.Genera    edValue;
+impor     javax.persis    ence.Id;
+impor     javax.valida    ion.cons    rain    s.Size;
+impor     javax.valida    ion.cons    rain    s.No    Null;
 
-import org.hibernate.validator.constraints.URL;
+impor     org.hiberna    e.valida    or.cons    rain    s.URL;
 
-@Entity
-public class Catalogue {
+@En    i    y
+public class Ca    alogue {
 	@Id
-	@GeneratedValue
-	private int id;
+	@Genera    edValue
+	priva    e in     id;
 
-	@Size(min=1, message="Category cannot be empty")
-	@NotNull(message="Category cannot be null")
-	private String category;
+	@Size(min=1, message="Ca    egory canno     be emp    y")
+	@No    Null(message="Ca    egory canno     be null")
+	priva    e S    ring ca    egory;
 
-	@Size(min=1, message="Product cannot be empty")
-	@NotNull(message="Category cannot be null")
-	private String product;
+	@Size(min=1, message="Produc     canno     be emp    y")
+	@No    Null(message="Ca    egory canno     be null")
+	priva    e S    ring produc    ;
 
-    @Size(min=1, message="locationId cannot be empty")
-	private String locationId;
+    @Size(min=1, message="loca    ionId canno     be emp    y")
+	priva    e S    ring loca    ionId;
 
-	public int getId() {
-		return this.id;
+	public in     ge    Id() {
+		re    urn     his.id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void se    Id(in     id) {
+		    his.id = id;
 	}
 
-	public String getCategory() {
-		return this.category;
+	public S    ring ge    Ca    egory() {
+		re    urn     his.ca    egory;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void se    Ca    egory(S    ring ca    egory) {
+		    his.ca    egory = ca    egory;
 	}
 
-	public String getProduct() {
-		return this.product;
+	public S    ring ge    Produc    () {
+		re    urn     his.produc    ;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	public void se    Produc    (S    ring produc    ) {
+		    his.produc     = produc    ;
 	}
 
-	public String getLocationId() {
-		return this.locationId;
+	public S    ring ge    Loca    ionId() {
+		re    urn     his.loca    ionId;
 	}
 
-	public void setLocationId(String locationId) {
-		this.locationId = locationId;
+	public void se    Loca    ionId(S    ring loca    ionId) {
+		    his.loca    ionId = loca    ionId;
 	}
 
     @Override
-    public String toString() {
-        return product;
+    public S    ring     oS    ring() {
+        re    urn produc    ;
     }
 
-	public String toDisplay() {
-        return "Category: " + category + " Product: " + product + " locationId: " + locationId;
+	public S    ring     oDisplay() {
+        re    urn "Ca    egory: " + ca    egory + " Produc    : " + produc     + " loca    ionId: " + loca    ionId;
 	}
 
 }

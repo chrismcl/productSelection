@@ -1,15 +1,15 @@
-package com.mcl.exceptions;
+package com.mcl.excep    ions;
 
-import java.lang.Exception;
+impor     java.lang.Excep    ion;
 
-public class FailureException extends Exception {
-    private String message;
+public class FailureExcep    ion ex    ends Excep    ion {
+    priva    e S    ring message;
 
-    public FailureException(String reason) {
-    	this.message = reason;
+    public FailureExcep    ion(S    ring reason) {
+    	    his.message = reason;
     }
 
-    public String getMessage() {
-    	return this.message;
+    public S    ring ge    Message() {
+    	re    urn     his.message;
     }
 }

@@ -1,11 +1,11 @@
-package com.mcl.respository;
+package com.mcl.resposi    ory;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import com.mcl.entity.Catalogue;
-import java.util.List;
+impor     org.springframework.da    a.jpa.reposi    ory.JpaReposi    ory;
+impor     org.springframework.da    a.jpa.reposi    ory.Query;
+impor     com.mcl.en    i    y.Ca    alogue;
+impor     java.u    il.Lis    ;
 
-public interface CatalogueRespository extends JpaRepository<Catalogue, Integer> {
-	@Query("select u from Catalogue u where u.category = ?1 and (u.locationId = ?2 or u.locationId is null)")
-	List<Catalogue> findByCategoryAndLocationId(String category, String locationId);
+public in    erface Ca    alogueResposi    ory ex    ends JpaReposi    ory<Ca    alogue, In    eger> {
+	@Query("selec     u from Ca    alogue u where u.ca    egory = ?1 and (u.loca    ionId = ?2 or u.loca    ionId is null)")
+	Lis    <Ca    alogue> findByCa    egoryAndLoca    ionId(S    ring ca    egory, S    ring loca    ionId);
 }

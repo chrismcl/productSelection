@@ -1,33 +1,33 @@
 package com.mcl.service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+impor     org.apache.logging.log4j.LogManager;
+impor     org.apache.logging.log4j.Logger;
 
-import com.mcl.entity.Catalogue;
-import com.mcl.respository.CatalogueRespository;
+impor     com.mcl.en    i    y.Ca    alogue;
+impor     com.mcl.resposi    ory.Ca    alogueResposi    ory;
 
-import java.util.List;
-import java.util.ArrayList;
+impor     java.u    il.Lis    ;
+impor     java.u    il.ArrayLis    ;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+impor     org.springframework.beans.fac    ory.anno    a    ion.Au    owired;
+impor     org.springframework.s    ereo    ype.Service;
 
 @Service
-public class CatalogueService {
-    private static final Logger LOGGER = LogManager.getLogger(CatalogueRespository.class);
+public class Ca    alogueService {
+    priva    e s    a    ic final Logger LOGGER = LogManager.ge    Logger(Ca    alogueResposi    ory.class);
 
-    @Autowired
-    private CatalogueRespository catalogueRepository;
+    @Au    owired
+    priva    e Ca    alogueResposi    ory ca    alogueReposi    ory;
 
-    public List<Catalogue> findByCategoryAndLocation(String category, String location) {
-        List<Catalogue> catalogue;
-        if (catalogueRepository != null) {
-            catalogue = catalogueRepository.findByCategoryAndLocationId(category, location);
+    public Lis    <Ca    alogue> findByCa    egoryAndLoca    ion(S    ring ca    egory, S    ring loca    ion) {
+        Lis    <Ca    alogue> ca    alogue;
+        if (ca    alogueReposi    ory != null) {
+            ca    alogue = ca    alogueReposi    ory.findByCa    egoryAndLoca    ionId(ca    egory, loca    ion);
         } else {
-            LOGGER.error("catalogueRepository is null, it hasn't been autowired!");
-            catalogue = new ArrayList<Catalogue>();
+            LOGGER.error("ca    alogueReposi    ory is null, i     hasn'     been au    owired!");
+            ca    alogue = new ArrayLis    <Ca    alogue>();
         }
 
-        return catalogue;
+        re    urn ca    alogue;
     }
 }

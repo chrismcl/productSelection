@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE h    ml PUBLIC "-//W3C//DTD XHTML 1.0 Transi    ional//EN" 
+"h        p://www.w3.org/TR/xh    ml1/DTD/xh    ml1-    ransi    ional.d    d">
+<h    ml xmlns="h        p://www.w3.org/1999/xh    ml"
+	xmlns:h="h        p://java.sun.com/jsf/h    ml"
+	xmlns:f="h        p://java.sun.com/jsf/core"
+	xmlns:ui="h        p://java.sun.com/jsf/facele    s"
+	xmlns:p="h        p://primefaces.org/ui">
 
     <h:head>
-        <title>Confirmation</title>
+        <    i    le>Confirma    ion</    i    le>
     </h:head>
     <h:body>
 
     	<h:form>
-            <p:panelGrid style="width:100%"> 
+            <p:panelGrid s    yle="wid    h:100%"> 
                 <p:row>
                     <p:column colspan="1">
-                        <p:spacer height="100"/>
+                        <p:spacer heigh    ="100"/>
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <h:outputText value="Customer ID: #{productSelectionBean.customerId}" />
+                        <h:ou    pu    Tex     value="Cus    omer ID: #{produc    Selec    ionBean.cus    omerId}" />
                     </p:column>
                 </p:row>
 
                 <p:row>
                     <p:column>
-                        <h:outputText value="Basket:" />
-                        <p:dataList id="selectedList" value="#{productSelectionBean.basketList}" var="selectedItems" type="unordered" paginator="true" rows="5">
-                            <f:facet name="header">
-                               Basket Contents
-                            </f:facet>
-                            #{selectedItems}
-                        </p:dataList>
+                        <h:ou    pu    Tex     value="Baske    :" />
+                        <p:da    aLis     id="selec    edLis    " value="#{produc    Selec    ionBean.baske    Lis    }" var="selec    edI    ems"     ype="unordered" pagina    or="    rue" rows="5">
+                            <f:face     name="header">
+                               Baske     Con    en    s
+                            </f:face    >
+                            #{selec    edI    ems}
+                        </p:da    aLis    >
                     </p:column>
                 </p:row>
 
             </p:panelGrid>
     	</h:form>
     </h:body>
-</html>
+</h    ml>

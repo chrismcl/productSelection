@@ -1,61 +1,61 @@
-package com.mcl.database;
+package com.mcl.da    abase;
 
-import com.mcl.entity.Catalogue;
-import com.mcl.respository.CatalogueRespository;
+impor     com.mcl.en    i    y.Ca    alogue;
+impor     com.mcl.resposi    ory.Ca    alogueResposi    ory;
 
-import java.util.List;
-import javax.annotation.PostConstruct;
+impor     java.u    il.Lis    ;
+impor     javax.anno    a    ion.Pos    Cons    ruc    ;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+impor     org.springframework.beans.fac    ory.anno    a    ion.Au    owired;
+impor     org.springframework.s    ereo    ype.Service;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+impor     org.apache.logging.log4j.LogManager;
+impor     org.apache.logging.log4j.Logger;
 
 @Service
-public class TempDatabase {
+public class TempDa    abase {
 
-    private static final Logger LOGGER = LogManager.getLogger(TempDatabase.class);
+    priva    e s    a    ic final Logger LOGGER = LogManager.ge    Logger(TempDa    abase.class);
 
-	@Autowired
-	private CatalogueRespository catalogueRepository;
+	@Au    owired
+	priva    e Ca    alogueResposi    ory ca    alogueReposi    ory;
 
-	@PostConstruct
-	public void init() {
-		List<Catalogue> catalogList = catalogueRepository.findAll();
-		if (catalogList == null || catalogList.isEmpty()) {
-			/* if this is a real database don't keep filling it up with the same data */
-			LOGGER.info("Database is empty... Filling in the Database...");
+	@Pos    Cons    ruc    
+	public void ini    () {
+		Lis    <Ca    alogue> ca    alogLis     = ca    alogueReposi    ory.findAll();
+		if (ca    alogLis     == null || ca    alogLis    .isEmp    y()) {
+			/* if     his is a real da    abase don'     keep filling i     up wi    h     he same da    a */
+			LOGGER.info("Da    abase is emp    y... Filling in     he Da    abase...");
 
-			Catalogue arsenalTv = new Catalogue();
-			arsenalTv.setCategory("Sports");
-			arsenalTv.setProduct("Arsenal TV");
-			arsenalTv.setLocationId("London");
-			catalogueRepository.save(arsenalTv);
+			Ca    alogue arsenalTv = new Ca    alogue();
+			arsenalTv.se    Ca    egory("Spor    s");
+			arsenalTv.se    Produc    ("Arsenal TV");
+			arsenalTv.se    Loca    ionId("London");
+			ca    alogueReposi    ory.save(arsenalTv);
 
-			Catalogue chelseaTv = new Catalogue();
-			chelseaTv.setCategory("Sports");
-			chelseaTv.setProduct("Chelsea TV");
-			chelseaTv.setLocationId("London");
-			catalogueRepository.save(chelseaTv);
+			Ca    alogue chelseaTv = new Ca    alogue();
+			chelseaTv.se    Ca    egory("Spor    s");
+			chelseaTv.se    Produc    ("Chelsea TV");
+			chelseaTv.se    Loca    ionId("London");
+			ca    alogueReposi    ory.save(chelseaTv);
 
-			Catalogue liverpoolTv = new Catalogue();
-			liverpoolTv.setCategory("Sports");
-			liverpoolTv.setProduct("Liverpool TV");
-			liverpoolTv.setLocationId("Liverpool");
-			catalogueRepository.save(liverpoolTv);
+			Ca    alogue liverpoolTv = new Ca    alogue();
+			liverpoolTv.se    Ca    egory("Spor    s");
+			liverpoolTv.se    Produc    ("Liverpool TV");
+			liverpoolTv.se    Loca    ionId("Liverpool");
+			ca    alogueReposi    ory.save(liverpoolTv);
 
-			Catalogue skyNews = new Catalogue();
-			skyNews.setCategory("News");
-			skyNews.setProduct("Sky News");
-			catalogueRepository.save(skyNews);
+			Ca    alogue skyNews = new Ca    alogue();
+			skyNews.se    Ca    egory("News");
+			skyNews.se    Produc    ("Sky News");
+			ca    alogueReposi    ory.save(skyNews);
 
-			Catalogue skySportsNews = new Catalogue();
-			skySportsNews.setCategory("News");
-			skySportsNews.setProduct("Sky Sports News");
-			catalogueRepository.save(skySportsNews);
+			Ca    alogue skySpor    sNews = new Ca    alogue();
+			skySpor    sNews.se    Ca    egory("News");
+			skySpor    sNews.se    Produc    ("Sky Spor    s News");
+			ca    alogueReposi    ory.save(skySpor    sNews);
 		} else {
-            LOGGER.info("Database is not Empty, doing nothing");
+            LOGGER.info("Da    abase is no     Emp    y, doing no    hing");
 		}
 	}
 }
