@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Confirmation</title>
+    </h:head>
+    <h:body>
+
+    	<h:form>
+            <p:panelGrid style="width:100%"> 
+                <p:row>
+                    <p:column colspan="1">
+                        <p:spacer height="100"/>
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Customer ID: #{productSelectionBean.customerId}" />
+                    </p:column>
+                </p:row>
+
+                <p:row>
+                    <p:column>
+                        <h:outputText value="Basket:" />
+                        <p:dataList id="selectedList" value="#{productSelectionBean.basketList}" var="selectedItems" type="unordered" paginator="true" rows="5">
+                            <f:facet name="header">
+                               Basket Contents
+                            </f:facet>
+                            #{selectedItems}
+                        </p:dataList>
+                    </p:column>
+                </p:row>
+
+            </p:panelGrid>
+    	</h:form>
+    </h:body>
+</html>

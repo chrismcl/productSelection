@@ -1,0 +1,11 @@
+create database prod_sel default character set utf8 default collate utf8_general_ci;
+use prod_sel;
+
+CREATE TABLE `catalogue` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(45) DEFAULT NULL,
+  `product` varchar(45) DEFAULT NULL,
+  `locationId` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
