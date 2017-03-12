@@ -25,42 +25,42 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class ApplicationConfig {
 
     /* in memory database */
-	@Bean
+    @Bean
     public DataSource dataSource() {
-	    EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-	    return builder.setType(EmbeddedDatabaseType.HSQL).build();
-	}
+        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+        return builder.setType(EmbeddedDatabaseType.HSQL).build();
+    }
 
     /* mysql database */
-	// @Bean
-	// public DataSource dataSource() {
-	// 	DriverManagerDataSource dataSource = new DriverManagerDataSource();
-	// 	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	// 	dataSource.setUrl("jdbc:mysql://localhost:3306/prod_sel");
-	// 	dataSource.setUsername("root");
-	// 	dataSource.setPassword("root");
-	// 	return dataSource;
+    // @Bean
+    // public DataSource dataSource() {
+    //  DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    //  dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+    //  dataSource.setUrl("jdbc:mysql://localhost:3306/prod_sel");
+    //  dataSource.setUsername("root");
+    //  dataSource.setPassword("root");
+    //  return dataSource;
     // }
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setGenerateDdl(true);
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
 
-		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("com.mcl.entity");
-		factory.setDataSource(dataSource());
-		return factory;
-	}
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setJpaVendorAdapter(vendorAdapter);
+        factory.setPackagesToScan("com.mcl.entity");
+        factory.setDataSource(dataSource());
+        return factory;
+    }
 
-	@Bean
-	public PlatformTransactionManager transactionManager() {
+    @Bean
+    public PlatformTransactionManager transactionManager() {
 
-		JpaTransactionManager txManager = new JpaTransactionManager();
-		txManager.setEntityManagerFactory(entityManagerFactory().getNativeEntityManagerFactory());
-		return txManager;
-	}
+        JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(entityManagerFactory().getNativeEntityManagerFactory());
+        return txManager;
+    }
 
 }

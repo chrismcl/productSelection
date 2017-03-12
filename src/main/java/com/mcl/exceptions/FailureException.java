@@ -6,10 +6,10 @@ public class FailureException extends Exception {
     private String message;
 
     public FailureException(String reason) {
-    	this.message = reason;
+        this.message = reason;
     }
 
     public String getMessage() {
-    	return this.message;
+        return this.message;
     }
 }

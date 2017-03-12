@@ -24,31 +24,31 @@ import org.apache.logging.log4j.Logger;
 @SessionScoped
 public class ProductSelectionBean implements Serializable {
 
-	private static final Logger LOGGER = LogManager.getLogger(ProductSelectionBean.class);
-	private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = LogManager.getLogger(ProductSelectionBean.class);
+    private static final long serialVersionUID = 1L;
  
     @ManagedProperty("#{catalogueService}")
     private CatalogueService catalogueService;
 
-	private List<Catalogue> selectedNews;
-	private List<Catalogue> selectedSports;
-	private List<Catalogue> basketList;
+    private List<Catalogue> selectedNews;
+    private List<Catalogue> selectedSports;
+    private List<Catalogue> basketList;
 
-	private Map<String,List<Catalogue>> products;
+    private Map<String,List<Catalogue>> products;
 
-	private String customerId = "";
+    private String customerId = "";
 
-	@PostConstruct
+    @PostConstruct
     public void init() {
-    	LOGGER.info("init");
+        LOGGER.info("init");
 
-    	ProductSelectionCookie cookie = new ProductSelectionCookie();
+        ProductSelectionCookie cookie = new ProductSelectionCookie();
         customerId = cookie.getCustomerId();
         LOGGER.info("customerId: {}", customerId);
 
-    	selectedNews = new ArrayList<Catalogue>();
-    	selectedSports = new ArrayList<Catalogue>();
-    	basketList = new ArrayList<Catalogue>();
+        selectedNews = new ArrayList<Catalogue>();
+        selectedSports = new ArrayList<Catalogue>();
+        basketList = new ArrayList<Catalogue>();
 
         products = new HashMap<String, List<Catalogue>>();
 
@@ -60,7 +60,7 @@ public class ProductSelectionBean implements Serializable {
             getCatalogueData(locationId);
 
         } catch (FailureException e) {
-        	LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -71,54 +71,54 @@ public class ProductSelectionBean implements Serializable {
             products.put("Sports", sportsProducts);
             products.put("News", newsProducts);
         } else {
-        	LOGGER.error("catalogueService is null, dependency injection has failed");
+            LOGGER.error("catalogueService is null, dependency injection has failed");
         }
     }
 
     public List<Catalogue> getProducts(String category) {
         return this.products.get(category);
-    }	
+    }   
 
-	public void setSelectedNews(List<Catalogue> selectedNews) {
-		LOGGER.debug("Set selectedNews: {}", selectedNews);
-	    this.selectedNews = selectedNews;
-	}
+    public void setSelectedNews(List<Catalogue> selectedNews) {
+        LOGGER.debug("Set selectedNews: {}", selectedNews);
+        this.selectedNews = selectedNews;
+    }
 
-	public List<Catalogue> getSelectedNews() {
+    public List<Catalogue> getSelectedNews() {
         LOGGER.debug("Get selectedNews: {}", this.selectedNews);
-		return this.selectedNews;
-	}
+        return this.selectedNews;
+    }
 
-	public void setSelectedSports(List<Catalogue> selectedSports) {
+    public void setSelectedSports(List<Catalogue> selectedSports) {
         LOGGER.debug("Set selectedSports: {}", selectedSports);
-	    this.selectedSports = selectedSports;
-	}
+        this.selectedSports = selectedSports;
+    }
 
-	public List<Catalogue> getSelectedSports() {
+    public List<Catalogue> getSelectedSports() {
         LOGGER.debug("Get selectedSports: {}", this.selectedSports);
-		return this.selectedSports;
-	}
+        return this.selectedSports;
+    }
 
-	public void setBasket() {
-		LOGGER.debug("Set Basket");
-		this.basketList = new ArrayList<Catalogue>();
+    public void setBasket() {
+        LOGGER.debug("Set Basket");
+        this.basketList = new ArrayList<Catalogue>();
         this.basketList.addAll(this.selectedNews);
         this.basketList.addAll(this.selectedSports);
-	}
+    }
 
-	public List<Catalogue> getBasketList() {
-		return this.basketList;
-	}
+    public List<Catalogue> getBasketList() {
+        return this.basketList;
+    }
 
-	public String getCustomerId() {
-		return this.customerId;
-	}
+    public String getCustomerId() {
+        return this.customerId;
+    }
 
-	public void setCatalogueService(CatalogueService catalogueService) {
+    public void setCatalogueService(CatalogueService catalogueService) {
         this.catalogueService = catalogueService;
-	}
+    }
 
-	public CatalogueService getCatalogueService() {
-		return this.catalogueService;
-	}
+    public CatalogueService getCatalogueService() {
+        return this.catalogueService;
+    }
 }

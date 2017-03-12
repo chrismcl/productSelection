@@ -15,16 +15,16 @@ import org.springframework.stereotype.Service;
 public class CustomerLocationService {
     private static final Logger LOGGER = LogManager.getLogger(CustomerLocationService.class);
     //TODO hardcoded to london until this is implemented
-	private String location = "London";
+    private String location = "London";
 
-	public String findLocationIdByCustomerId(String customerId) throws FailureException {
-		//@Autowired
+    public String findLocationIdByCustomerId(String customerId) throws FailureException {
+        //@Autowired
         //LocationRepository locationRepository;
         
-		if (StringUtils.isBlank(customerId)) {
+        if (StringUtils.isBlank(customerId)) {
             throw new FailureException("There was a problem retrieving the customer information");
-		}
+        }
 
-		return location;
-	}
+        return location;
+    }
 }

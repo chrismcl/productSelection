@@ -11,32 +11,32 @@ import org.apache.logging.log4j.Logger;
 public class ProductSelectionCookie {
     private static final Logger LOGGER = LogManager.getLogger(ProductSelectionCookie.class);
 
-	private static final String CUSTOMER_ID_COOKIE_ID = "productSelction_customerId";
+    private static final String CUSTOMER_ID_COOKIE_ID = "productSelction_customerId";
     private static final String CUSTOMER_ID_COOKIE_VALUE = "AB321542134";
 
-	public ProductSelectionCookie() {
+    public ProductSelectionCookie() {
         //TODO: This is just to simulate a cookie until we have the real thing.
         setCookie(CUSTOMER_ID_COOKIE_ID, CUSTOMER_ID_COOKIE_VALUE);
-	}
+    }
 
-	public void setCustomerId(String customerId) {
+    public void setCustomerId(String customerId) {
         setCookie(CUSTOMER_ID_COOKIE_ID, customerId);
-	}
+    }
 
-	public String getCustomerId() {
+    public String getCustomerId() {
         return getCookie(CUSTOMER_ID_COOKIE_ID);
-	}
+    }
 
-	public void setCookie(String cookieId, String cookieValue) {
+    public void setCookie(String cookieId, String cookieValue) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
         Cookie requestedCookie = findCookie(request, cookieId); 
 
         if (requestedCookie != null) {
-        	requestedCookie.setValue(cookieValue);
+            requestedCookie.setValue(cookieValue);
         } else {
-        	requestedCookie = new Cookie(cookieId, cookieValue);
-        	requestedCookie.setPath(request.getContextPath());
+            requestedCookie = new Cookie(cookieId, cookieValue);
+            requestedCookie.setPath(request.getContextPath());
         }
 
         requestedCookie.setMaxAge(-1);
@@ -45,9 +45,9 @@ public class ProductSelectionCookie {
         response.addCookie(requestedCookie);
 
         LOGGER.info("cookie set: {} : {}", requestedCookie.getName(), requestedCookie.getValue());
-	}
+    }
 
-	public String getCookie(String cookieId) {
+    public String getCookie(String cookieId) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)facesContext.getExternalContext().getRequest();
         Cookie requestedCookie = findCookie(request, cookieId);
@@ -61,7 +61,7 @@ public class ProductSelectionCookie {
         }
 
         return requestedCookieValue;
-	}
+    }
 
     private Cookie findCookie(HttpServletRequest request, String cookieId) {
         Cookie requestedCookie = null;
